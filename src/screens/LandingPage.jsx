@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import BookReaderModal from '../components/BookReaderModal';
+import VideoModal from '../components/VideoModal';
 
 const CompanionIcon = ({ icon, label }) => (
   <div className="flex flex-col items-center gap-4 group cursor-pointer transition-all duration-300">
@@ -20,6 +21,7 @@ const LandingPage = () => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const [selectedBook, setSelectedBook] = useState(null);
   const [bookMode, setBookMode] = useState('read');
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
   const onSubmit = (data) => {
     console.log('Form submitted:', data);
@@ -393,7 +395,7 @@ const LandingPage = () => {
             {/* CTA */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-2">
               <button
-                onClick={() => document.getElementById('academy-highlights')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => setIsVideoModalOpen(true)}
                 className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-gradient-to-r from-[#E91E63] to-[#FF5E9B] text-white font-black text-[11px] uppercase tracking-widest shadow-[0_8px_25px_rgba(233,30,99,0.3)] hover:scale-105 hover:shadow-[0_12px_35px_rgba(233,30,99,0.4)] transition-all"
               >
                 👉 Watch Demo Video
@@ -720,8 +722,11 @@ const LandingPage = () => {
                     <h4 className="text-[#4B1E5A] font-serif font-black text-xl leading-tight group-hover:text-[#E91E63] transition-colors">{post.title}</h4>
                     <p className="text-[#4B1E5A]/60 text-sm font-medium leading-relaxed line-clamp-2">{post.desc}</p>
                   </div>
-                  <div className="flex items-center gap-2 text-[#E91E63] font-black text-[10px] uppercase tracking-widest pt-4 border-t border-[#4B1E5A]/5 group-hover:gap-3 transition-all">
-                                        Read More <span className="transition-transform group-hover:translate-x-1">&rarr;</span>
+                  <div 
+                    onClick={() => navigate('/login')}
+                    className="flex items-center gap-2 text-[#E91E63] font-black text-[10px] uppercase tracking-widest pt-4 border-t border-[#4B1E5A]/5 group-hover:gap-3 transition-all"
+                  >
+                    Read More <span className="transition-transform group-hover:translate-x-1">&rarr;</span>
                   </div>
                 </div>
               </motion.div>
@@ -861,6 +866,10 @@ const LandingPage = () => {
         onClose={() => setSelectedBook(null)} 
         book={selectedBook} 
         initialMode={bookMode} 
+      />
+      <VideoModal 
+        isOpen={isVideoModalOpen} 
+        onClose={() => setIsVideoModalOpen(false)} 
       />
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes float {
