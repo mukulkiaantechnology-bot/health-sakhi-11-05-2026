@@ -9,6 +9,8 @@ import HowToUsePage from './screens/HowToUsePage';
 import LibraryPage from './screens/LibraryPage';
 import LoginPage from './screens/LoginPage';
 import OTPScreen from './screens/OTPScreen';
+import PrivacyPolicy from './screens/PrivacyPolicy';
+import TermsOfService from './screens/TermsOfService';
 
 // Member Screens
 import UserHome from './screens/app/HomeScreen';
@@ -85,6 +87,8 @@ const App = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/otp" element={<OTPScreen />} />
       <Route path="/welcome" element={<OnboardingScreen />} />
+      <Route path="/privacy" element={<PrivacyPolicy />} />
+      <Route path="/terms" element={<TermsOfService />} />
 
       {/* ── 👤 Member Dashboard ── */}
       <Route path="/app" element={<DashboardLayout role="member" />}>
