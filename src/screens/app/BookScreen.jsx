@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import RewardModal from '../../components/RewardModal';
 
 // ── Mock Data ────────────────────────────────────────────────────────────────
 const BOOKS_DATA = {
@@ -156,6 +157,7 @@ const BookScreen = () => {
   const [userAnswers, setUserAnswers] = useState({});
   const [quizScore, setQuizScore] = useState(null);
   const [isReading, setIsReading] = useState(false);
+  const [showReward, setShowReward] = useState(false);
 
   const totalPages = (book.chapters?.length || 5) * 6;
   const passingScore = Math.ceil(book.questions.length * 0.6);
@@ -250,6 +252,24 @@ const BookScreen = () => {
         lastRead: new Date().toISOString()
       };
       localStorage.setItem('userProgress', JSON.stringify(userProgress));
+
+      // Save reward to hs_book_rewards for Rewards page
+      const bookRewards = JSON.parse(localStorage.getItem('hs_book_rewards') || '[]');
+      const alreadyRewarded = bookRewards.some(r => r.bookId === book.id);
+      if (!alreadyRewarded) {
+        bookRewards.push({
+          bookId: book.id,
+          bookTitle: book.title,
+          points: 50,
+          earnedAt: new Date().toISOString()
+        });
+        localStorage.setItem('hs_book_rewards', JSON.stringify(bookRewards));
+      }
+
+      // Trigger Reward Animation
+      setTimeout(() => {
+        setShowReward(true);
+      }, 800);
     }
   };
 
@@ -577,6 +597,13 @@ const BookScreen = () => {
            </div>
         </div>
       </footer>
+
+      <RewardModal 
+        isOpen={showReward} 
+        onClose={() => navigate('/app/books')} 
+        points={50}
+        bookTitle={book.title}
+      />
     </div>
   );
 };

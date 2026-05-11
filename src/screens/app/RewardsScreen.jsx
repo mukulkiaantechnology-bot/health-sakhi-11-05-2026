@@ -1,20 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Trophy, Star, Zap, Gift, ChevronLeft, ChevronRight, Award, Sparkles, CheckCircle2, Clock, Lock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const RewardsScreen = () => {
   const navigate = useNavigate();
-  const [coins, setCoins] = useState(480);
   const [unlockedGifts, setUnlockedGifts] = useState([]);
   const [showToast, setShowToast] = useState(false);
   const [unlockedBadges, setUnlockedBadges] = useState([1, 2]); // IDs of earned badges
-  
-  const [activities] = useState([
-    { id: 1, text: "Daily Login Streak (12 Days)", amount: "+20", time: "2h ago" },
-    { id: 2, text: "Completed Morning Affirmations", amount: "+10", time: "5h ago" },
-    { id: 3, text: "Redeemed 'Wellness Kit'", amount: "-5000", time: "1d ago" },
-  ]);
+
+  // Read book rewards from localStorage and calculate dynamic balance
+  const bookRewards = JSON.parse(localStorage.getItem('hs_book_rewards') || '[]');
+  const bookRewardPoints = bookRewards.reduce((sum, r) => sum + (r.points || 0), 0);
+  const BASE_BALANCE = 480;
+  const [coins, setCoins] = useState(BASE_BALANCE + bookRewardPoints);
+
+  // Rebuild coins when component mounts (in case rewards were added)
+  useEffect(() => {
+    const rewards = JSON.parse(localStorage.getItem('hs_book_rewards') || '[]');
+    const earned = rewards.reduce((sum, r) => sum + (r.points || 0), 0);
+    setCoins(BASE_BALANCE + earned);
+  }, []);
+
+  // Build activities: static ones + dynamic book rewards
+  const staticActivities = [
+    { id: 's1', text: "Daily Login Streak (12 Days)", amount: "+20", time: "2h ago" },
+    { id: 's2', text: "Completed Morning Affirmations", amount: "+10", time: "5h ago" },
+    { id: 's3', text: "Redeemed 'Wellness Kit'", amount: "-5000", time: "1d ago" },
+  ];
+
+  const bookActivities = bookRewards.map((r, i) => {
+    const earnedDate = new Date(r.earnedAt);
+    const now = new Date();
+    const diffMs = now - earnedDate;
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHrs = Math.floor(diffMins / 60);
+    const diffDays = Math.floor(diffHrs / 24);
+    let timeAgo = 'Just now';
+    if (diffDays > 0) timeAgo = `${diffDays}d ago`;
+    else if (diffHrs > 0) timeAgo = `${diffHrs}h ago`;
+    else if (diffMins > 0) timeAgo = `${diffMins}m ago`;
+
+    return {
+      id: `book_${r.bookId}`,
+      text: `📖 Completed: ${r.bookTitle}`,
+      amount: `+${r.points}`,
+      time: timeAgo,
+    };
+  });
+
+  const activities = [...bookActivities, ...staticActivities];
 
   const badges = [
     { id: 1, name: 'Early Bird', icon: Sparkles, color: '#ff69b4', description: 'Log in before 8 AM for 5 days.' },
