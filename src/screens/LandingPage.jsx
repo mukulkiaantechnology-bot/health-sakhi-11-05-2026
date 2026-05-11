@@ -778,44 +778,47 @@ const LandingPage = () => {
             className="bg-white/70 backdrop-blur-xl p-8 lg:p-10 rounded-[3rem] border border-white shadow-[0_20px_60px_rgba(233,30,99,0.06)]"
           >
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-[9px] font-black text-[#4B1E5A] uppercase tracking-widest ml-1 opacity-60">Full Name</label>
-                  <input {...register('fullName', { required: true })} type="text" className="w-full h-12 px-5 bg-white/80 rounded-xl border border-white focus:border-[#E91E63] focus:ring-4 focus:ring-[#E91E63]/5 outline-none transition-all font-medium text-sm text-[#4B1E5A]" placeholder="Priya Sharma" />
-                  {errors.fullName && <span className="text-red-500 text-xs ml-1 font-bold">This field is required</span>}
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[9px] font-black text-[#4B1E5A] uppercase tracking-widest ml-1 opacity-60">Email Address</label>
-                  <input {...register('email', { required: true, pattern: /^\S+@\S+$/i })} type="email" className="w-full h-12 px-5 bg-white/80 rounded-xl border border-white focus:border-[#E91E63] focus:ring-4 focus:ring-[#E91E63]/5 outline-none transition-all font-medium text-sm text-[#4B1E5A]" placeholder="priya@example.com" />
-                  {errors.email && <span className="text-red-500 text-xs ml-1 font-bold">Valid email is required</span>}
-                </div>
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-[#4B1E5A] uppercase tracking-widest ml-1 opacity-70">YOUR NAME</label>
+                <input 
+                  {...register('fullName', { required: true })} 
+                  type="text" 
+                  className="w-full h-14 px-6 bg-white rounded-2xl border-2 border-[#4B1E5A]/20 focus:border-[#4B1E5A] outline-none transition-all font-bold text-sm text-[#4B1E5A]" 
+                  placeholder="Priya Sharma" 
+                />
+                {errors.fullName && <span className="text-red-500 text-[10px] ml-1 font-bold">This field is required</span>}
               </div>
 
               <div className="space-y-2">
-                <label className="text-[9px] font-black text-[#4B1E5A] uppercase tracking-widest ml-1 opacity-60">Area of Interest</label>
-                <div className="relative">
-                  <select {...register('interest', { required: true })} className="w-full h-12 px-5 bg-white/80 rounded-xl border border-white focus:border-[#E91E63] focus:ring-4 focus:ring-[#E91E63]/5 outline-none transition-all font-medium text-sm text-[#4B1E5A] appearance-none cursor-pointer">
-                    <option value="">Select an area</option>
-                    <option value="Hormonal Health">Hormonal Health</option>
-                    <option value="Stress & Anxiety">Stress & Anxiety</option>
-                    <option value="Nutritional Guidance">Nutritional Guidance</option>
-                    <option value="Parenting Support">Parenting Support</option>
-                  </select>
-                  <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-[#4B1E5A]/40">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M6 9l6 6 6-6"/></svg>
-                  </div>
-                </div>
-                {errors.interest && <span className="text-red-500 text-xs ml-1 font-bold">Please select an area of interest</span>}
+                <label className="text-[10px] font-black text-[#4B1E5A] uppercase tracking-widest ml-1 opacity-70">EMAIL ADDRESS</label>
+                <input 
+                  {...register('email', { required: true, pattern: /^\S+@\S+$/i })} 
+                  type="email" 
+                  className="w-full h-14 px-6 bg-white rounded-2xl border-2 border-[#4B1E5A]/20 focus:border-[#4B1E5A] outline-none transition-all font-bold text-sm text-[#4B1E5A]" 
+                  placeholder="priya@example.com" 
+                />
+                {errors.email && <span className="text-red-500 text-[10px] ml-1 font-bold">Valid email is required</span>}
               </div>
 
               <div className="space-y-2">
-                <label className="text-[9px] font-black text-[#4B1E5A] uppercase tracking-widest ml-1 opacity-60">Message</label>
-                <textarea {...register('message', { required: true })} className="w-full h-24 p-5 bg-white/80 rounded-xl border border-white focus:border-[#E91E63] focus:ring-4 focus:ring-[#E91E63]/5 outline-none transition-all font-medium text-sm text-[#4B1E5A] resize-none" placeholder="How can we support you?"></textarea>
-                {errors.message && <span className="text-red-500 text-xs ml-1 font-bold">Message is required</span>}
+                <label className="text-[10px] font-black text-[#4B1E5A] uppercase tracking-widest ml-1 opacity-70">MESSAGE</label>
+                <textarea 
+                  {...register('message', { required: true })} 
+                  className="w-full h-32 p-6 bg-white rounded-2xl border-2 border-[#4B1E5A]/20 focus:border-[#4B1E5A] outline-none transition-all font-bold text-sm text-[#4B1E5A] resize-none" 
+                  placeholder="How can we help?"
+                ></textarea>
+                {errors.message && <span className="text-red-500 text-[10px] ml-1 font-bold">Message is required</span>}
               </div>
 
-              <button type="submit" className="w-full py-4 bg-gradient-to-r from-[#E91E63] to-[#FF5E9B] text-white rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg shadow-pink-100 hover:scale-[1.02] hover:shadow-xl transition-all duration-300">
+              <button 
+                type="submit" 
+                className="w-full py-5 bg-[#E91E63] text-white rounded-full font-black text-[11px] uppercase tracking-[0.2em] shadow-xl shadow-pink-100 hover:scale-[1.02] hover:shadow-2xl hover:shadow-pink-200 transition-all duration-300 flex items-center justify-center gap-3 group"
+              >
                 Send Message
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
               </button>
             </form>
           </motion.div>
@@ -844,11 +847,24 @@ const LandingPage = () => {
             </div>
 
             <div className="flex items-center gap-6">
-              {['Privacy', 'Terms', 'Contact'].map(link => (
-                <Link key={link} to={`/${link.toLowerCase()}`} className="text-[10px] font-black text-[#4B1E5A] uppercase tracking-widest opacity-60 hover:opacity-100 hover:text-[#E91E63] transition-all">
-                  {link}
-                </Link>
-              ))}
+              {['Privacy', 'Terms', 'Contact'].map(link => {
+                if (link === 'Contact') {
+                  return (
+                    <button 
+                      key={link} 
+                      onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                      className="text-[10px] font-black text-[#4B1E5A] uppercase tracking-widest opacity-60 hover:opacity-100 hover:text-[#E91E63] transition-all"
+                    >
+                      {link}
+                    </button>
+                  );
+                }
+                return (
+                  <Link key={link} to={`/${link.toLowerCase()}`} className="text-[10px] font-black text-[#4B1E5A] uppercase tracking-widest opacity-60 hover:opacity-100 hover:text-[#E91E63] transition-all">
+                    {link}
+                  </Link>
+                );
+              })}
             </div>
           </div>
 

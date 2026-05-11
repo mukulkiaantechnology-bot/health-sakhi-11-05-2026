@@ -18,7 +18,8 @@ const LoginPage = () => {
     phone: '',
     email: '',
     password: '',
-    plan: 'Free Sakhi'
+    plan: 'Free Sakhi',
+    isAgreed: false
   });
   const navigate = useNavigate();
 
@@ -78,9 +79,14 @@ const LoginPage = () => {
     e.preventDefault();
     setFeedback('');
 
-    const { name, phone, email: signupEmail, password: signupPassword, plan } = signupForm;
+    const { name, phone, email: signupEmail, password: signupPassword, plan, isAgreed } = signupForm;
     if (!name || !phone || !signupEmail.includes('@') || signupPassword.length < 4 || !plan) {
       setFeedback('Please fill all signup fields with valid values.');
+      return;
+    }
+
+    if (!isAgreed) {
+      setFeedback('Please agree to the Terms of Service and Privacy Policy to continue.');
       return;
     }
 
@@ -275,7 +281,34 @@ const LoginPage = () => {
               <select value={signupForm.plan} onChange={(e) => setSignupForm((p) => ({ ...p, plan: e.target.value }))} className="w-full h-12 px-4 rounded-xl border bg-rose-50/20 text-xs font-bold" style={{ borderColor: '#F5E6EA' }}>
                 {planOptions.map((plan) => <option key={plan} value={plan}>{plan}</option>)}
               </select>
-              <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" className="w-full py-4 text-[11px] font-black uppercase tracking-[0.3em] text-white rounded-[2rem] shadow-2xl transition-all flex items-center justify-center gap-3" style={{ background: '#15192c' }}>
+
+              {/* Agreement Checkbox */}
+              <div className="flex items-start gap-3 py-2 px-1">
+                <div className="relative flex items-center h-5">
+                  <input
+                    id="terms-checkbox"
+                    type="checkbox"
+                    checked={signupForm.isAgreed}
+                    onChange={(e) => setSignupForm(p => ({ ...p, isAgreed: e.target.checked }))}
+                    className="w-4 h-4 rounded border-[#F5E6EA] text-[#ff69b4] focus:ring-[#ff69b4] cursor-pointer"
+                  />
+                </div>
+                <label htmlFor="terms-checkbox" className="text-[10px] font-bold text-[#C4A0AC] leading-tight cursor-pointer">
+                  I have read and agree to the{' '}
+                  <button type="button" onClick={() => navigate('/terms')} className="text-[#ff69b4] hover:underline">Terms of Service</button>
+                  {' '}and{' '}
+                  <button type="button" onClick={() => navigate('/privacy')} className="text-[#ff69b4] hover:underline">Privacy Policy</button>
+                </label>
+              </div>
+
+              <motion.button 
+                whileHover={signupForm.isAgreed ? { scale: 1.02 } : {}} 
+                whileTap={signupForm.isAgreed ? { scale: 0.98 } : {}} 
+                type="submit" 
+                disabled={!signupForm.isAgreed}
+                className={`w-full py-4 text-[11px] font-black uppercase tracking-[0.3em] text-white rounded-[2rem] shadow-2xl transition-all flex items-center justify-center gap-3 ${!signupForm.isAgreed ? 'opacity-40 grayscale cursor-not-allowed' : ''}`} 
+                style={{ background: '#15192c' }}
+              >
                 Create Signup Request
               </motion.button>
             </form>
