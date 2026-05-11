@@ -52,35 +52,34 @@ const LandingPage = () => {
       }}
     >
       
-      {/* Hero Section - full viewport, reference-image-matched layout */}
-      <section id="home" className="relative w-full h-screen min-h-[850px] flex flex-col pt-16 overflow-hidden">
+      {/* Hero Section - fully responsive layout */}
+      <section id="home" className="relative w-full lg:h-screen lg:min-h-[850px] flex flex-col pt-20 lg:pt-16 overflow-visible">
 
-        {/* ── 3-Column Hero Composition ── */}
-        <div className="relative flex-1 w-full max-w-[1280px] mx-auto px-6 lg:px-10">
+        {/* ── Responsive Hero Composition ── */}
+        <div className="relative flex-1 w-full max-w-[1280px] mx-auto px-6 lg:px-10 flex flex-col lg:block">
 
-          {/* ── LEFT COLUMN: Logo · Brand · Tagline · Headings · Description · CTAs ── */}
-          <div className="absolute left-[1%] top-[40%] -translate-y-1/2 w-[224px] xl:w-[228px] flex flex-col items-center text-center z-20">
+          {/* ── BRAND COLUMN: Logo · Brand · Tagline · Headings · Description · CTAs ── */}
+          <div className="flex flex-col items-center text-center lg:absolute lg:left-[1%] lg:top-[40%] lg:-translate-y-1/2 lg:w-[224px] xl:w-[228px] z-20 mt-6 lg:mt-0">
 
             {/* Lotus Logo */}
             <img
               src="/Images/WhatsApp Image 2026-05-04 at 6.32.54 PM.jpeg"
               alt="HealthSakhi Lotus Logo"
-              className="w-20 h-20 md:w-24 md:h-24 object-contain drop-shadow-md mb-1"
-             
+              className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 object-contain drop-shadow-md mb-1"
             />
 
             {/* Brand Name */}
             <h1
               className="font-serif font-black text-[#4B1E5A] uppercase leading-none mb-0.5"
-              style={{ fontSize: 'clamp(1.35rem, 2vw, 1.85rem)', letterSpacing: '0.18em' }}
+              style={{ fontSize: 'clamp(1.35rem, 2.5vw, 1.85rem)', letterSpacing: '0.18em' }}
             >
               Health Sakhi
             </h1>
 
             {/* ─ Wellness Academy tagline with decorative rule ─ */}
-            <div className="flex items-center gap-2 w-full justify-center mb-2">
+            <div className="flex items-center gap-2 w-full justify-center mb-2 max-w-[200px]">
               <div className="h-[1px] flex-1 bg-[#C69214]/50"></div>
-              <span className="text-[#C69214] font-serif italic font-semibold text-[11px] whitespace-nowrap">
+              <span className="text-[#C69214] font-serif italic font-semibold text-[10px] lg:text-[11px] whitespace-nowrap">
                 ✦ Wellness Academy ✦
               </span>
               <div className="h-[1px] flex-1 bg-[#C69214]/50"></div>
@@ -92,15 +91,15 @@ const LandingPage = () => {
             {/* ─ Main 3-line headings ─ */}
             <div className="mb-2 leading-tight space-y-[1px]">
               <p className="font-black text-[#2D1B3D] uppercase tracking-widest"
-                 style={{ fontSize: 'clamp(1.15rem, 1.8vw, 1.55rem)' }}>
+                 style={{ fontSize: 'clamp(1.1rem, 2vw, 1.55rem)' }}>
                 Gyan Badhao
               </p>
               <p className="font-black text-[#E91E63] uppercase tracking-widest"
-                 style={{ fontSize: 'clamp(1.15rem, 1.8vw, 1.55rem)' }}>
+                 style={{ fontSize: 'clamp(1.1rem, 2vw, 1.55rem)' }}>
                 Dhan Kamao
               </p>
               <p className="font-black text-[#2D1B3D] uppercase tracking-widest"
-                 style={{ fontSize: 'clamp(1.15rem, 1.8vw, 1.55rem)' }}>
+                 style={{ fontSize: 'clamp(1.1rem, 2vw, 1.55rem)' }}>
                 Learn To Earn
               </p>
             </div>
@@ -109,8 +108,8 @@ const LandingPage = () => {
             <div className="text-[#E91E63] text-sm my-2 opacity-80">♥</div>
 
             {/* Description */}
-            <p className="text-[#4B1E5A]/75 font-medium leading-relaxed mb-4"
-               style={{ fontSize: 'clamp(0.7rem, 0.95vw, 0.88rem)' }}>
+            <p className="text-[#4B1E5A]/75 font-medium leading-relaxed mb-4 max-w-[250px] lg:max-w-none"
+               style={{ fontSize: 'clamp(0.7rem, 1.2vw, 0.88rem)' }}>
               Join our unique{' '}
               <span className="text-[#E91E63] font-bold">HealthSakhi</span> Program<br />
               and become a Wellness Champion<br />
@@ -118,47 +117,47 @@ const LandingPage = () => {
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex items-center gap-3 justify-center">
+            <div className="flex flex-wrap items-center gap-3 justify-center">
               <button
                 onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
-                className="px-6 py-3 rounded-full bg-[#E91E63] text-white font-black text-[11px] uppercase tracking-widest shadow-[0_4px_15px_rgba(233,30,99,0.3)] hover:scale-105 hover:shadow-[0_8px_25px_rgba(233,30,99,0.45)] transition-all"
+                className="px-5 lg:px-6 py-2.5 lg:py-3 rounded-full bg-[#E91E63] text-white font-black text-[10px] lg:text-[11px] uppercase tracking-widest shadow-[0_4px_15px_rgba(233,30,99,0.3)] hover:scale-105 hover:shadow-[0_8px_25px_rgba(233,30,99,0.45)] transition-all"
               >
                 Explore Services
               </button>
               <button
                 onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
-                className="px-6 py-3 rounded-full border-2 border-[#4B1E5A] bg-white/60 backdrop-blur-sm text-[#4B1E5A] font-black text-[11px] uppercase tracking-widest hover:bg-[#4B1E5A] hover:text-white transition-all"
+                className="px-5 lg:px-6 py-2.5 lg:py-3 rounded-full border-2 border-[#4B1E5A] bg-white/60 backdrop-blur-sm text-[#4B1E5A] font-black text-[10px] lg:text-[11px] uppercase tracking-widest hover:bg-[#4B1E5A] hover:text-white transition-all"
               >
                 Learn More
               </button>
             </div>
           </div>
 
-          {/* ── CENTER COLUMN: Group Photo ── */}
-          <div className="absolute left-1/2 -translate-x-1/2 top-10 bottom-[165px] w-[100%] lg:w-[85%] z-10 flex items-end justify-center pointer-events-none">
+          {/* ── PHOTO COLUMN: Group Photo ── */}
+          <div className="relative lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:top-10 lg:bottom-[165px] w-full lg:w-[85%] z-10 flex items-end justify-center mt-8 lg:mt-0 pointer-events-none min-h-[300px] lg:min-h-0">
             <img
               src="/Images/9463e621-f694-4e65-b51c-8c53c4bcd51e-removebg-preview.png"
               alt="HealthSakhi Community Women"
-              className="w-full h-full object-contain drop-shadow-2xl"
+              className="w-full h-full max-h-[400px] lg:max-h-none object-contain drop-shadow-2xl"
               style={{ objectPosition: 'center bottom' }}
             />
           </div>
 
-          {/* ── RIGHT COLUMN: Phone Mockup ── */}
-          <div className="absolute right-[1%] top-[45%] -translate-y-1/2 w-[22%] flex justify-end z-20">
-            <div className="relative w-[220px] xl:w-[255px]">
+          {/* ── APP COLUMN: Phone Mockup ── */}
+          <div className="relative lg:absolute lg:right-[1%] lg:top-[45%] lg:-translate-y-1/2 w-full lg:w-[22%] flex justify-center lg:justify-end z-20 mt-12 lg:mt-0 pb-10 lg:pb-0">
+            <div className="relative w-[200px] md:w-[220px] xl:w-[255px]">
               <img
                 src="/Images/mobilecard.png"
                 alt="HealthSakhi App Mockup"
-                className="w-full h-auto drop-shadow-2xl hover:-translate-y-2 transition-transform duration-700"
+                className="w-full h-auto drop-shadow-[0_20px_50px_rgba(233,30,99,0.2)] hover:-translate-y-2 transition-transform duration-700"
               />
             </div>
           </div>
-        </div>{/* end 3-column wrapper */}
+        </div>{/* end responsive wrapper */}
 
-        {/* ── Bottom Stats Bar — fills the 165px gap ── */}
-        <div className="absolute bottom-0 left-0 right-0 h-[165px] z-30 flex items-center px-6 lg:px-16">
-          <div className="w-full max-w-[1280px] mx-auto grid grid-cols-2 lg:grid-cols-4 gap-3 h-[120px]">
+        {/* ── Bottom Stats Bar — responsive layout ── */}
+        <div className="relative lg:absolute bottom-0 left-0 right-0 lg:h-[165px] z-30 flex items-center px-6 lg:px-16 mt-12 lg:mt-0 pb-12 lg:pb-0">
+          <div className="w-full max-w-[1280px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-3 lg:h-[120px]">
             {[
               {
                 value: '10,000+',
@@ -188,19 +187,20 @@ const LandingPage = () => {
               <motion.div
                 key={idx}
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 + idx * 0.1, duration: 0.6 }}
-                className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-white/70 backdrop-blur-md border border-white/60 shadow-[0_4px_20px_rgba(233,30,99,0.06)] hover:bg-white hover:shadow-[0_6px_25px_rgba(233,30,99,0.1)] transition-all duration-300 group"
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 + idx * 0.1, duration: 0.6 }}
+                className="flex items-center gap-4 px-5 py-4 lg:py-3 rounded-2xl bg-white/70 backdrop-blur-md border border-white/60 shadow-[0_4px_20px_rgba(233,30,99,0.06)] hover:bg-white hover:shadow-[0_6px_25px_rgba(233,30,99,0.1)] transition-all duration-300 group"
               >
-                <span className="text-2xl shrink-0">{stat.emoji}</span>
+                <span className="text-3xl lg:text-2xl shrink-0">{stat.emoji}</span>
                 <div className="min-w-0">
                   <p
-                    className="font-black text-xl leading-none"
+                    className="font-black text-2xl lg:text-xl leading-none"
                     style={{ color: stat.color }}
                   >
                     {stat.value}
                   </p>
-                  <p className="text-[10px] font-black text-[#4B1E5A]/60 uppercase tracking-wide leading-tight mt-0.5 truncate">
+                  <p className="text-[11px] lg:text-[10px] font-black text-[#4B1E5A]/60 uppercase tracking-wide leading-tight mt-1 lg:mt-0.5 truncate">
                     {stat.label}
                   </p>
                 </div>
