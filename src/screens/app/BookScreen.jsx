@@ -264,6 +264,9 @@ const BookScreen = () => {
           earnedAt: new Date().toISOString()
         });
         localStorage.setItem('hs_book_rewards', JSON.stringify(bookRewards));
+        
+        // Dispatch custom event for real-time balance update in Navbar
+        window.dispatchEvent(new Event('hs_balance_update'));
       }
 
       // Trigger Reward Animation

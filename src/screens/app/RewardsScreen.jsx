@@ -106,13 +106,48 @@ const RewardsScreen = () => {
               </div>
             </div>
             
-            <div className="bg-[#15192c] text-white px-6 md:px-8 py-3 md:py-4 rounded-2xl flex items-center gap-4 shadow-xl self-start sm:self-auto">
-               <div className="w-8 h-8 bg-[#ff69b4] rounded-lg flex items-center justify-center shadow-lg"><Award size={18} /></div>
-               <div>
-                  <p className="text-[8px] font-bold uppercase tracking-widest text-[#ff69b4]">Balance</p>
-                  <p className="text-lg md:text-xl font-black">{coins} 🪙</p>
-               </div>
-            </div>
+            {/* Professional Main Balance Card */}
+            <motion.div 
+              initial={{ x: 20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              className="relative group self-start sm:self-auto min-w-[180px] md:min-w-[220px]"
+            >
+              {/* Outer Glow */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#ff69b4] to-[#8b5cf6] rounded-[2rem] blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+              
+              <div className="relative bg-[#15192c] text-white px-6 md:px-10 py-4 md:py-6 rounded-[1.8rem] flex items-center gap-5 md:gap-8 shadow-2xl overflow-hidden border border-white/5">
+                {/* Decorative Rotating Ring */}
+                <motion.div 
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                  className="absolute -right-8 -top-8 w-32 h-32 border-[20px] border-dashed border-white/5 rounded-full pointer-events-none"
+                />
+                
+                {/* Icon Section with Aura */}
+                <div className="relative shrink-0">
+                   <motion.div 
+                     animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+                     transition={{ duration: 4, repeat: Infinity }}
+                     className="absolute inset-0 bg-[#ff69b4] blur-xl rounded-full"
+                   />
+                   <div className="relative w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-[#ff69b4] to-[#e05297] rounded-2xl flex items-center justify-center shadow-[0_10px_20px_-5px_rgba(255,105,180,0.5)] border border-white/20">
+                      <Award size={24} className="md:size-28" />
+                   </div>
+                </div>
+                
+                {/* Text Content */}
+                <div className="relative z-10">
+                   <p className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.25em] text-[#ff69b4] mb-1">Total Balance</p>
+                   <div className="flex items-center gap-3">
+                      <p className="text-2xl md:text-4xl font-black tracking-tight">{coins}</p>
+                      <span className="text-xl md:text-2xl animate-bounce" style={{ animationDuration: '3s' }}>🪙</span>
+                   </div>
+                </div>
+
+                {/* Subtle Mesh Background Overlay */}
+                <div className="absolute inset-0 mesh-bg opacity-10 pointer-events-none" />
+              </div>
+            </motion.div>
           </header>
 
           {/* Stats Cards */}
