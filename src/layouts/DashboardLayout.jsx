@@ -6,7 +6,7 @@ import {
   Home, PlayCircle, BookOpen, MessageSquare, Calendar, User, Sparkles,
   LayoutDashboard, Clock, DollarSign, Users, Video, UserPlus, CreditCard,
   BarChart2, ShieldCheck, Zap, Info as InfoIcon, CheckCircle2 as CheckIcon, AlertCircle,
-  Link as LinkIcon, Image as ImageIcon, ChevronDown, GraduationCap
+  Link as LinkIcon, Image as ImageIcon, ChevronDown, GraduationCap, Award
 } from 'lucide-react';
 
 const ROLE_CONFIG = {
@@ -103,6 +103,37 @@ const MemberNavbar = ({ config, isActive }) => {
   const [isMobileSakhiOpen, setIsMobileSakhiOpen] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
+  const [coins, setCoins] = useState(480);
+
+  // Calculate dynamic balance
+  const calculateBalance = () => {
+    const rewards = JSON.parse(localStorage.getItem('hs_book_rewards') || '[]');
+    const earned = rewards.reduce((sum, r) => sum + (r.points || 0), 0);
+    return 480 + earned;
+  };
+
+  useEffect(() => {
+    // Initial load
+    setCoins(calculateBalance());
+
+    // Listen for custom balance update event (same tab)
+    const handleBalanceUpdate = () => {
+      setCoins(calculateBalance());
+    };
+
+    // Listen for storage changes (other tabs)
+    const handleStorageChange = (e) => {
+      if (e.key === 'hs_book_rewards') setCoins(calculateBalance());
+    };
+
+    window.addEventListener('hs_balance_update', handleBalanceUpdate);
+    window.addEventListener('storage', handleStorageChange);
+    
+    return () => {
+      window.removeEventListener('hs_balance_update', handleBalanceUpdate);
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
 
   const notifications = [
     { id: 1, text: "Your session with Dr. Sakshi is in 30 mins.", time: "30m ago" },
@@ -149,6 +180,44 @@ const MemberNavbar = ({ config, isActive }) => {
           </div>
 
           <div className="flex items-center gap-2 sm:gap-4">
+            {/* Premium Reward Balance Pill */}
+            <Link 
+              to="/app/rewards" 
+              className="group relative flex items-center gap-3 px-4 py-2 rounded-2xl transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+            >
+              {/* Animated Glow Backdrop */}
+              <div className="absolute inset-0 bg-[#15192c] rounded-2xl shadow-[0_8px_16px_-6px_rgba(21,25,44,0.3)] group-hover:shadow-[0_12px_24px_-8px_rgba(255,105,180,0.4)] transition-all duration-300" />
+              
+              {/* Glassmorphism Shine */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+
+              {/* Icon with Glowing Aura */}
+              <div className="relative">
+                <motion.div 
+                  animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                  className="absolute inset-0 bg-[#ff69b4] blur-md rounded-full opacity-40 group-hover:opacity-60"
+                />
+                <div className="relative w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-[#ff69b4] to-[#e05297] rounded-xl flex items-center justify-center text-white shadow-lg border border-white/20">
+                  <Award size={14} className="sm:w-4 sm:h-4" />
+                </div>
+              </div>
+
+              {/* Text Content */}
+              <div className="relative flex flex-col items-start">
+                <span className="text-[8px] font-black uppercase tracking-[0.2em] text-[#ff69b4] mb-0.5 group-hover:text-pink-300 transition-colors">Balance</span>
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[13px] sm:text-[15px] font-black text-white tracking-tight leading-none">
+                    {coins}
+                  </span>
+                  <span className="text-[11px] sm:text-[12px] opacity-90">🪙</span>
+                </div>
+              </div>
+
+              {/* Subtle Right Arrow on Hover */}
+              <ChevronRight size={12} className="relative text-white/20 group-hover:text-[#ff69b4] group-hover:translate-x-0.5 transition-all -ml-1 opacity-0 group-hover:opacity-100" />
+            </Link>
+
             <div className="relative z-[110]">
               <button onClick={() => setShowNotifications(!showNotifications)} className="p-2.5 rounded-xl hover:bg-rose-50 relative transition-all" style={{ color: '#C4A0AC' }}>
                 <Bell size={20} />
